@@ -174,8 +174,11 @@ func Build(ctx Context, config Config, what int) {
 	if inList("help", config.Arguments()) {
 		help(ctx, config, what)
 		return
-	} else if inList("clean", config.Arguments()) || inList("clobber", config.Arguments()) {
+	} else if inList("clean", config.Arguments()) {
 		clean(ctx, config, what)
+		return
+	} else if inList("clobber", config.Arguments()) {
+		clobber(ctx, config, what)
 		return
 	}
 
