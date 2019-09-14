@@ -15,12 +15,12 @@
 package build
 
 import (
-	"fmt"
+//	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
+//	"strings"
 
 	"github.com/google/blueprint/microfactory"
 
@@ -76,6 +76,7 @@ func SetupPath(ctx Context, config Config) {
 		ctx.Fatalln("Failed to write original path:", err)
 	}
 
+/*
 	entries, err := paths.LogListener(ctx.Context, interposer+"_log")
 	if err != nil {
 		ctx.Fatalln("Failed to listen for path logs:", err)
@@ -114,6 +115,7 @@ func SetupPath(ctx Context, config Config) {
 			}
 		}
 	}()
+*/
 
 	ensureEmptyDirectoriesExist(ctx, myPath)
 
