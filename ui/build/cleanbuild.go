@@ -75,6 +75,11 @@ func installClean(ctx Context, config Config, what int) {
 			hostCrossOut("nativetest*"))
 	}
 
+	outDirPath := config.OutDir()
+	outDir := func(path string) string {
+		return filepath.Join(outDirPath, path)
+	}
+
 	hostOutPath := config.HostOut()
 	hostOut := func(path string) string {
 		return filepath.Join(hostOutPath, path)
@@ -98,6 +103,7 @@ func installClean(ctx Context, config Config, what int) {
 		hostOut("sdk_addon"),
 		hostOut("testcases"),
 		hostOut("vts"),
+		outDir("soong/.bootstrap"),
 		productOut("*.img"),
 		productOut("*.zip"),
 		productOut("*.zip.md5sum"),
