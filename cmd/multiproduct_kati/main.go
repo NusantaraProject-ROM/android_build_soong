@@ -37,12 +37,7 @@ import (
 	"android/soong/zip"
 )
 
-// We default to number of cpus.
-func detectNumJobs() int {
-	return runtime.NumCPU()
-}
-
-var numJobs = flag.Int("j", detectNumJobs(), "number of parallel kati jobs")
+var numJobs = flag.Int("j", 0, "number of parallel jobs [0=autodetect]")
 
 var keepArtifacts = flag.Bool("keep", false, "keep archives of artifacts")
 var incremental = flag.Bool("incremental", false, "run in incremental mode (saving intermediates)")
@@ -224,6 +219,21 @@ func main() {
 		trace.SetOutput(filepath.Join(config.OutDir(), "build.trace"))
 	}
 
+	var jobs = *numJobs
+	if jobs < 1 {
+		jobs = runtime.NumCPU() / 4
+
+		ramGb := int(config.TotalRAM() / 1024 / 1024 / 1024)
+		if ramJobs := ramGb / 20; ramGb > 0 && jobs > ramJobs {
+			jobs = ramJobs
+		}
+
+		if jobs < 1 {
+			jobs = 1
+		}
+	}
+	log.Verbosef("Using %d parallel jobs", jobs)
+
 	setMaxFiles(log)
 
 	finder := build.NewSourceFinder(buildCtx, config)
@@ -298,7 +308,7 @@ func main() {
 	}()
 
 	var wg sync.WaitGroup
-	for i := 0; i < *numJobs; i++ {
+	for i := 0; i < jobs; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
