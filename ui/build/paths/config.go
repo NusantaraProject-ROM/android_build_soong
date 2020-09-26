@@ -181,6 +181,15 @@ var Configuration = map[string]PathConfig{
 	"which":     LinuxOnlyPrebuilt,
 	"xargs":     LinuxOnlyPrebuilt,
 	"xxd":       LinuxOnlyPrebuilt,
+
+	// Extra stuff needed for now
+	"aarch64-linux-android-ar":      Allowed,
+	"aarch64-linux-android-gcc":     Allowed,
+	"aarch64-linux-android-ld":      Allowed,
+	"aarch64-linux-android-nm":      Allowed,
+	"aarch64-linux-android-objcopy": Allowed,
+	"aarch64-linux-android-objdump": Allowed,
+	"aarch64-linux-android-readelf": Allowed,
 }
 
 func init() {
