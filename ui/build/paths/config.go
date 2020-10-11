@@ -102,8 +102,10 @@ var Configuration = map[string]PathConfig{
 	// Kernel tools (VDSO)
 	"aarch64-linux-android-ar":    Allowed,
 	"aarch64-linux-android-as":    Allowed,
+	"aarch64-linux-android-ld":    Allowed,
 	"arm-linux-androidkernel-ar":  Allowed,
 	"arm-linux-androidkernel-as":  Allowed,
+	"arm-linux-androidkernel-ld":  Allowed,
 
 	// Host toolchain is removed. In-tree toolchain should be used instead.
 	// GCC also can't find cc1 with this implementation.
